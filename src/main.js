@@ -14,13 +14,24 @@ $('#submit').on('click', (event) => {
     });
 });
 
-
 const getBikes = (response) => {
   if(response.bikes) {
     response.bikes.forEach((element) => {
-      console.log(element);
+      for (const [key, value] of Object.entries(element)) {
+        if (value) {
+          
+          if (typeof value === 'string') {
+            showBikes(key, value);
+          }
+        }
+      }
     });
+
   } else {
     $('.showErrors').text(`There was an error: ${response.message}`);
   }
+};
+
+const showBikes = (key, value) => {
+  $('#response').append(`<li>${key}: ${value}</li>`);
 };
